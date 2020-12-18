@@ -1,11 +1,14 @@
 const redux  = require('redux');
 const createStore = redux.createStore;
 
-const BUY_CAKE = 'BUY_CAKE';
+/////////////////////////////////////////////////action creators... here. 
 
-//action creators... here.  is defined already.. 
 //you could pass the object itself to the dispatch method.. 
-//but using functions is better... 
+//but using functions is better... like repeating the object in every place buycake is called... 
+//rather than calling the buyCake() functions instead... 
+
+
+const BUY_CAKE = 'BUY_CAKE';
 function buyCake(){
     return {
         type: BUY_CAKE,
@@ -13,6 +16,8 @@ function buyCake(){
     }
 }
 
+
+/////////////////////////////////////////////////       the state here...  
 
 // {previous State, action } => newState
 // application state = a simple object.. .
@@ -22,7 +27,7 @@ const initialState = {
     numOfCakes : 10
 }
 
-//the reducer... here.... 
+//////////////////////////////////////////////////the reducer... here.... 
 // the reducer function controls how the state transitions happen....
 
 const reducer = (state=initialState, action) => {
@@ -39,7 +44,7 @@ const reducer = (state=initialState, action) => {
 }
 
 
-// the Redux Store..
+//////////////////////////////////////////////////// the Redux Store..
 /*  holds the application state
     allows the state to be updated via dispatch... 
     allows the app. to register listeners via subscribe... 
@@ -56,6 +61,11 @@ const unsubscribe = store.subscribe(() => console.log('updated state', store.get
 
 // used to update the state... dispatch(action) // action = buy state.
 // to simulate a process multiple times... 
+
+
+////////////////////////////////////////////// at the application level. 
+////////// you dispatch actions to the store. a
+
 store.dispatch(buyCake());
 store.dispatch(buyCake());
 store.dispatch(buyCake());
