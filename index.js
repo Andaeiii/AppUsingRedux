@@ -1,4 +1,5 @@
 const redux  = require('redux');
+const combineReducers = redux.combineReducers;
 const createStore = redux.createStore;
 
 /////////////////////////////////////////////////action creators... here. 
@@ -30,36 +31,39 @@ function buyIceCream(){
 // {previous State, action } => newState
 // application state = a simple object.. .
 
-//the state of the application.... 
-const initialState = {
-    numOfCakes : 10,
-    numOfIceCreams : 20
-}
 
-const initial
+const initCakeState = {
+    numOfCakes: 10
+};
+
+const initIceCreamState = {
+    numOfIceCreams: 20
+};
 
 //////////////////////////////////////////////////the reducer... here.... 
 // the reducer function controls how the state transitions happen....
 
-// the shop keepers are reducers, if you have multiple reducers - multiple shop keepers.. 
-
-const reducer = (state=initialState, action) => {
-
+//define the cake reducer here... 
+const cakeReducer = (state=initCakeState, action) => {
     switch(action.type){
-
         case BUY_CAKE: 
             return{
                 ...state,                           // copy the state object... 
                 numOfCakes: state.numOfCakes - 1    // then update this property in the object.. 
             }
             break;
+        default: return state
+    }
+}
 
+//define the icecream reducer here.. bothered about only the ice cream events.. 
+const iceCreamReducer = (state=initIceCreamState, action) => {
+    switch(action.type){
         case BUY_ICE_CREAM: 
             return{
                 ...state,                                   // copy the state object... 
                 numOfIceCreams: state.numOfIceCreams - 1    // then update this property in the object.. 
             }
-
         default: return state
     }
 
@@ -73,7 +77,12 @@ const reducer = (state=initialState, action) => {
     you can also unsubscribe to the store, by the subscribe functions..
 */
 
-const store = createStore(reducer);
+const rootReducer = combineReducers({       //you can assign any key - but the value must be the reducer name.. 
+    cake : cakeReducer, 
+    iceCream : iceCreamReducer
+});
+
+const store = createStore(rootReducer);
 
 console.log('initial state', store.getState());
 
