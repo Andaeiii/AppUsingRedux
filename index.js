@@ -1,6 +1,11 @@
 const redux  = require('redux');
-const combineReducers = redux.combineReducers;
+const reduxLogger = require('redux-logger');            //loger middleware.. 
+
+
 const createStore = redux.createStore;
+const combineReducers = redux.combineReducers;
+const applyMiddleware = redux.applyMiddleware;         //to apply middleware... 
+const logger = reduxLogger.createLogger();
 
 /////////////////////////////////////////////////action creators... here. 
 
@@ -82,13 +87,15 @@ const rootReducer = combineReducers({       //you can assign any key - but the v
     iceCream : iceCreamReducer
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(logger));
 
 console.log('initial state', store.getState());
 
 // allow the app to subscribe to changes in the store...  { unsubscribe = value returned }
 // so anytime the state updates, it is logged to the console... 
-const unsubscribe = store.subscribe(() => console.log('updated state', store.getState()));
+
+//no more console log when logger is available.. 
+const unsubscribe = store.subscribe(() => {}); //console.log('updated state', store.getState()));
 
 // used to update the state... dispatch(action) // action = buy state.
 // to simulate a process multiple times... 
@@ -105,6 +112,12 @@ store.dispatch(buyIceCream());
 store.dispatch(buyIceCream());
 
 
+/// so to access the items here.. 
+
+//state.cake.numOfCakes
+//state.iceCream.numOfIceCreams
+
+
 //unsubscribe by calling the function returned by the subscribe method.. 
 unsubscribe();
 
@@ -117,3 +130,7 @@ unsubscribe();
 // subscribe to the store
 // dispatch actions to update the store.. 
 // finally unsubscribe to the changes..... 
+
+
+//middleware - a 3rd party extension between dispatching an action and the moment it reaches an action... 
+// 
