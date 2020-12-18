@@ -9,6 +9,8 @@ const createStore = redux.createStore;
 
 
 const BUY_CAKE = 'BUY_CAKE';
+const BUY_ICE_CREAM = 'BUY_ICE_CREAM';
+
 function buyCake(){
     return {
         type: BUY_CAKE,
@@ -16,6 +18,12 @@ function buyCake(){
     }
 }
 
+function buyIceCream(){
+    return {
+        type: BUY_ICE_CREAM,
+        info: 'First redux action'
+    }
+}
 
 /////////////////////////////////////////////////       the state here...  
 
@@ -24,20 +32,34 @@ function buyCake(){
 
 //the state of the application.... 
 const initialState = {
-    numOfCakes : 10
+    numOfCakes : 10,
+    numOfIceCreams : 20
 }
+
+const initial
 
 //////////////////////////////////////////////////the reducer... here.... 
 // the reducer function controls how the state transitions happen....
 
+// the shop keepers are reducers, if you have multiple reducers - multiple shop keepers.. 
+
 const reducer = (state=initialState, action) => {
+
     switch(action.type){
+
         case BUY_CAKE: 
             return{
                 ...state,                           // copy the state object... 
                 numOfCakes: state.numOfCakes - 1    // then update this property in the object.. 
             }
             break;
+
+        case BUY_ICE_CREAM: 
+            return{
+                ...state,                                   // copy the state object... 
+                numOfIceCreams: state.numOfIceCreams - 1    // then update this property in the object.. 
+            }
+
         default: return state
     }
 
@@ -69,6 +91,9 @@ const unsubscribe = store.subscribe(() => console.log('updated state', store.get
 store.dispatch(buyCake());
 store.dispatch(buyCake());
 store.dispatch(buyCake());
+
+store.dispatch(buyIceCream());
+store.dispatch(buyIceCream());
 
 
 //unsubscribe by calling the function returned by the subscribe method.. 
