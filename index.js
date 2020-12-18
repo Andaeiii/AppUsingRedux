@@ -87,7 +87,7 @@ const rootReducer = combineReducers({       //you can assign any key - but the v
     iceCream : iceCreamReducer
 });
 
-const store = createStore(rootReducer, applyMiddleware(logger));
+const store = createStore(rootReducer, applyMiddleware(logger));  
 
 console.log('initial state', store.getState());
 
@@ -133,4 +133,8 @@ unsubscribe();
 
 
 //middleware - a 3rd party extension between dispatching an action and the moment it reaches an action... 
-// 
+
+
+
+//sync actions - actions that take place as soon as the event occurs. 
+//async actions - actions that lag for a while.. 
