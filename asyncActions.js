@@ -72,12 +72,13 @@ const reducer = (state=initialState, action) => {
 
 //this is an action creator.. 
 //the thunk middleware enables the action creator to reuturn a function ~ that can also dispatch actions made
-//possible because it receives a dispatch method as its arguments.. 
+//possible because it receives a dispatch(callanItem) method as its arguments.. 
 const fetchUsers = () => {
-    return function(dispatch){        
+    return function(dispatch){      
+
         dispatch(fetchUsersRequest());                          //dispatch action to set loading to true 
 
-        axios.get('https://jsonplaceholder.typicode.com/users')
+        axios.get('https://jsonplacedholder.typicode.com/users')
         .then(response => {
             const users = response.data.map(user => user.id);   // only pic the ids of each user..
            dispatch(fetchUsersSuccess(users));                  //response .data = users array... 
